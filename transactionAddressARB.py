@@ -2,7 +2,7 @@ import requests
 from requests.exceptions import HTTPError
 import json
 
-API_KEY = 'RNN5W9JSFJ1ESN9K8WEJQB8YJMZEYM4KCY'
+API_KEY = ''
 
 def jprint(obj):
     text = json.dumps(obj, sort_keys=True, indent=2)
@@ -13,8 +13,8 @@ def getWalletARB(a, sb, nb, eb):
         "module": 'account',
         "action": 'tokentx',
         "contractaddress": a,
-        "page": 1,
-        "offset": 100,
+        "startblock": sb,
+        "endblock": nb,
         "sort": "asc",
         "apikey": API_KEY
     }
@@ -25,7 +25,7 @@ def getWalletARB(a, sb, nb, eb):
     while int(p["endblock"]) != eb:
         try:
             if 5000 < (eb - int(p["startblock"])):    
-                response = requests.get('https://api.etherscan.io/api?', params=p)
+                response = requests.get('https://api.arbiscan.io/api?', params=p)
                 response.raise_for_status()
                 tx = response.json()
                 jprint(tx)
@@ -39,7 +39,7 @@ def getWalletARB(a, sb, nb, eb):
                 p["startblock"] = str(int(p["endblock"]) + 1)
                 p["endblock"] = str(int(p["endblock"]) + 5000)
             elif 1000 < (eb - int(p["startblock"])):
-                response = requests.get('https://api.etherscan.io/api?', params=p)
+                response = requests.get('https://api.arbiscan.io/api?', params=p)
                 response.raise_for_status()
                 tx = response.json()
                 jprint(tx)
@@ -53,7 +53,7 @@ def getWalletARB(a, sb, nb, eb):
                 p["startblock"] = str(int(p["endblock"]) + 1)
                 p["endblock"] = str(int(p["endblock"]) + 1000)
             elif 500 < (eb - int(p["startblock"])):
-                response = requests.get('https://api.etherscan.io/api?', params=p)
+                response = requests.get('https://api.arbiscan.io/api?', params=p)
                 response.raise_for_status()
                 tx = response.json()
                 jprint(tx)
@@ -67,7 +67,7 @@ def getWalletARB(a, sb, nb, eb):
                 p["startblock"] = str(int(p["endblock"]) + 1)
                 p["endblock"] = str(int(p["endblock"]) + 500)
             elif 100 < (eb - int(p["startblock"])):
-                response = requests.get('https://api.etherscan.io/api?', params=p)
+                response = requests.get('https://api.arbiscan.io/api?', params=p)
                 response.raise_for_status()
                 tx = response.json()
                 jprint(tx)
@@ -81,7 +81,7 @@ def getWalletARB(a, sb, nb, eb):
                 p["startblock"] = str(int(p["endblock"]) + 1)
                 p["endblock"] = str(int(p["endblock"]) + 100)
             elif 10 < (eb - int(p["startblock"])):
-                response = requests.get('https://api.etherscan.io/api?', params=p)
+                response = requests.get('https://api.arbiscan.io/api?', params=p)
                 response.raise_for_status()
                 tx = response.json()
                 jprint(tx)
@@ -95,7 +95,7 @@ def getWalletARB(a, sb, nb, eb):
                 p["startblock"] = str(int(p["endblock"]) + 1)
                 p["endblock"] = str(int(p["endblock"]) + 10)
             else:
-                response = requests.get('https://api.etherscan.io/api?', params=p)
+                response = requests.get('https://api.arbiscan.io/api?', params=p)
                 response.raise_for_status()
                 tx = response.json()
                 jprint(tx)

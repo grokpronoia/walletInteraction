@@ -31,6 +31,5 @@ def main():
         last = int(blockNumberBSC(end, "after"))
         getWalletBSC(sys.argv[4], first, next, last)
 
-        
 if __name__ == "__main__":
     main()
